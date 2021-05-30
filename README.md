@@ -28,6 +28,12 @@ composer require leafs/redis
 
 To get started with Leaf Redis, you simply need to call the `init` method and pass in any configuration you need.
 
+```php
+Leaf\Redis::init();
+```
+
+This will initialize a new redis connection, from there, you can call any function you need to call.
+
 ### Aloe CLI
 
 Although Leaf Redis can be used outside the Leaf environment, there's more support for Leaf based frameworks. Leaf Redis comes with out of the box support for Aloe CLI which is used in Leaf MVC and Leaf API. To get started, head over to the `leaf` file in the root directory of your Leaf API/Leaf MVC app or wherever aloe CLI is registered and register a new command.
@@ -40,7 +46,44 @@ From there you should have access to a bunch of new commands from Leaf redis. Th
 
 ```sh
 redis
-  redis:install     Create leaf redis config and .env variables
+  redis:install  Create leaf redis config and .env variables
+  redis:server   Start redis server
+```
+
+## Available Methods
+
+### set
+
+This allows you to set a redis entry.
+
+```php
+Leaf\Redis::set("key", "value");
+
+// you can also use arrays to set multiple values at once
+
+Leaf\Redis::set(["key" => "value", "key2" => "value"]);
+```
+
+### get
+
+This returns a saved redis entry.
+
+```php
+$value = Leaf\Redis::get("key");
+
+// You can also get multiple entries at once
+
+$data = Leaf\Redis::get(["key", "key2"]);
+
+// $data => [key => value, key2 => value]
+```
+
+### ping
+
+Ping the redis server
+
+```php
+Leaf\Redis::ping();
 ```
 
 ## View Leaf's docs [here](https://leafphp.netlify.app/#/)
