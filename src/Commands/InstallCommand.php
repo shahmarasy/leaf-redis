@@ -8,8 +8,8 @@ use Leaf\FS;
 class InstallCommand extends Command
 {
     protected static $defaultName = "redis:install";
-    public $description = "Install leaf redis config";
-    public $help = "Install leaf redis config";
+    public $description = "Create leaf redis config and .env variables";
+    public $help = "Create leaf redis config and .env variables";
 
     protected function updateConfig()
     {
