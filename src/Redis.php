@@ -232,6 +232,9 @@ class Redis
      */
     public static function commands()
     {
+        require __DIR__ . "/Commands/InstallCommand.php";
+        require __DIR__ . "/Commands/ServerCommand.php";
+
         return [
             Redis\Commands\InstallCommand::class,
             Redis\Commands\ServerCommand::class,
