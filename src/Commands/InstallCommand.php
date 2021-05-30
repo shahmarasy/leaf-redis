@@ -11,7 +11,7 @@ class InstallCommand extends Command
     public $description = "Install leaf redis config";
     public $help = "Install leaf redis config";
 
-    protected function getStubs()
+    protected function updateConfig()
     {
         $installablesDir = __DIR__ . "/stubs";
         $installables = FS::listFolders($installablesDir);
@@ -33,9 +33,32 @@ class InstallCommand extends Command
         }
     }
 
+    protected function updateEnv()
+    {
+        $env = \Aloe\Command\Config::rootpath(".env");
+        $envExample = \Aloe\Command\Config::rootpath(".env.example");
+
+        $envData = "
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+REDIS_PASSWORD=null";
+
+        if (file_exists($env)) {
+            $envContent = file_get_contents($env);
+            file_put_contents($env, str_replace($envData, "", $envContent) . $envData);
+        }
+
+        if (file_exists($envExample)) {
+            $envExampleContent = file_get_contents($envExample);
+            file_put_contents($envExample, str_replace($envData, "", $envExampleContent) . $envData);
+        }
+    }
+
     protected function handle()
     {
-        $this->getStubs();
+        $this->updateConfig();
+        $this->updateEnv();
+
         $this->comment("Leaf redis installed successfully!");
     }
 }
