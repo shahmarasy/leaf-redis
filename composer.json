@@ -1,0 +1,32 @@
+{
+    "name": "leafs/redis",
+    "description": "Super simple redis helper for your PHP apps.",
+    "keywords": [
+        "redis",
+        "cache",
+        "storage",
+        "leaf",
+        "php",
+        "database"
+    ],
+    "homepage": "https://github.com/leafsphp/redis",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Darko",
+            "email": "mickdd22@gmail.com",
+            "homepage": "https://mychi.netlify.app",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Leaf\\": "src"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "leafs/aloe": "^1.1"
+    }
+}
