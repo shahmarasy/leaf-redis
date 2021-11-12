@@ -25,7 +25,8 @@
             "Leaf\\": "src"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+	"prefer-stable": true,
     "require": {
         "leafs/aloe": "^1.1"
     }
