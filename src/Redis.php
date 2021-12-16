@@ -60,7 +60,7 @@ class Redis
                 static::$config["connection.timeout"],
                 static::$config["connection.reserved"],
                 static::$config["connection.retryInterval"],
-                static::$config["connection.readTimeout"],
+                static::$config["connection.readTimeout"]
             );
         } catch (\Throwable $th) {
             trigger_error($th);
@@ -144,7 +144,7 @@ class Redis
                 }
             }
 
-            array_push($parsedOptions, $option);
+            $parsedOptions[] = $option;
         }
 
         static::$config["session.saveOptions"] = $parsedOptions;
@@ -207,14 +207,14 @@ class Redis
 
     /**
      * Ping redis server.
-     * 
-     * @param string $message — [optional]
+     *
+     * @param string|null $message — [optional]
      * @return bool|string
      * TRUE if the command is successful or returns message Throws a RedisException object on connectivity error, as described above
-     * @throws RedisException
+     * @throws \RedisException
      * @link https://redis.io/commands/ping
      */
-    public static function ping($message = null)
+    public static function ping(string $message = null)
     {
         return static::$redis->ping($message);
     }
@@ -222,7 +222,7 @@ class Redis
     /**
      * Return all saved errors
      */
-    public static function errors()
+    public static function errors(): array
     {
         return static::$errors;
     }
@@ -230,7 +230,7 @@ class Redis
     /**
      * Get all leaf redis console commands
      */
-    public static function commands()
+    public static function commands(): array
     {
         require __DIR__ . "/Commands/InstallCommand.php";
         require __DIR__ . "/Commands/ServerCommand.php";
