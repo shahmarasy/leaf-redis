@@ -1,28 +1,33 @@
 <!-- markdownlint-disable no-inline-html -->
 <p align="center">
-    <br><br>
-    <img src="https://leaf-docs.netlify.app/images/logo.png" height="100"/>
-    <h1 align="center">Leaf Redis Helper</h1>
-    <br><br>
+  <br><br>
+  <img src="https://leafphp.dev/logo-circle.png" height="100"/>
+  <br>
 </p>
 
-# Leaf Redis
+<h1 align="center">Leaf Redis</h1>
 
-<!-- [![Latest Stable Version](https://poser.pugx.org/leafs/leaf/v/stable)](https://packagist.org/packages/leafs/leaf)
-[![Total Downloads](https://poser.pugx.org/leafs/leaf/downloads)](https://packagist.org/packages/leafs/leaf)
-[![License](https://poser.pugx.org/leafs/leaf/license)](https://packagist.org/packages/leafs/leaf) -->
+[![Latest Stable Version](https://poser.pugx.org/leafs/redis/v/stable)](https://packagist.org/packages/leafs/redis)
+[![Total Downloads](https://poser.pugx.org/leafs/redis/downloads)](https://packagist.org/packages/leafs/redis)
+[![License](https://poser.pugx.org/leafs/redis/license)](https://packagist.org/packages/leafs/redis)
 
-This is a new addition to Leaf's collection of packages. Unlike other packages, this one doesn't come pre-packaged with Leaf by default and so needs to be installed separately.
+Leaf Redis provides a simple interface for interacting with Redis using PHP. It also comes with a bunch of CLI commands for Leaf based frameworks.
 
 ## Installation
 
-You can quickly and simply install Leaf Redis through composer.
+*To get started, be sure to have redis installed on your machine.*
 
-```sh
-composer require leafs/redis
+You can quickly and simply install Leaf Redis with the Leaf CLI:
+
+```bash
+leaf install redis
 ```
 
-**NOTE:** Leaf redis is a separate package and so can be used outside of Leaf.
+Or with composer:
+
+```bash
+composer require leafs/redis
+```
 
 ## Getting Started
 
@@ -63,7 +68,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Set the host for redis connection
 |
 */
-"host" => "127.0.0.1",
+'host' => '127.0.0.1',
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +78,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Set the port for redis host
 |
 */
-"port" => 6379,
+'port' => 6379,
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +88,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Set the password for redis connection
 |
 */
-"password" => null,
+'password' => null,
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +98,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Set redis as session save handler
 |
 */
-"session" => false,
+'session' => false,
 
 /*
 |--------------------------------------------------------------------------
@@ -103,7 +108,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Value in seconds (optional, default is 0.0 meaning unlimited)
 |
 */
-"connection.timeout" => 0.0,
+'connection.timeout' => 0.0,
 
 /*
 |--------------------------------------------------------------------------
@@ -113,7 +118,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | should be null if $retryInterval is specified
 |
 */
-"connection.reserved" => null,
+'connection.reserved' => null,
 
 /*
 |--------------------------------------------------------------------------
@@ -123,7 +128,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Connection retry interval in milliseconds.
 |
 */
-"connection.retryInterval" => 0,
+'connection.retryInterval' => 0,
 
 /*
 |--------------------------------------------------------------------------
@@ -133,7 +138,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | Value in seconds (optional, default is 0 meaning unlimited
 |
 */
-"connection.readTimeout" => 0.0,
+'connection.readTimeout' => 0.0,
 
 /*
 |--------------------------------------------------------------------------
@@ -145,7 +150,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | by passing in an array.
 |
 */
-"session.savePath" => null,
+'session.savePath' => null,
 
 /*
 |--------------------------------------------------------------------------
@@ -156,7 +161,7 @@ As mentioned above, the `init` method takes in an array for configuration. Below
 | the order of the save path above.
 |
 */
-"session.saveOptions" => [],
+'session.saveOptions' => [],
 ```
 
 ```php
@@ -164,10 +169,10 @@ use Leaf\Redis;
 
 Redis::init([
   // you can use multiple hosts
-  "session.savePath" => ["tcp://host1:6379", "tcp://host2:6379"],
+  'session.savePath' => ['tcp://host1:6379', 'tcp://host2:6379'],
 
   // the first array is for the first host, second for the second host
-  "session.saveOptions" => [["weight" => 1], ["weight" => 2]],
+  'session.saveOptions' => [['weight' => 1], ['weight' => 2]],
 ]);
 ```
 
@@ -178,11 +183,11 @@ Redis::init([
 This allows you to set a redis entry.
 
 ```php
-Leaf\Redis::set("key", "value");
+Leaf\Redis::set('key', 'value');
 
 // you can also use arrays to set multiple values at once
 
-Leaf\Redis::set(["key" => "value", "key2" => "value"]);
+Leaf\Redis::set(['key' => 'value', 'key2' => 'value']);
 ```
 
 ### get
@@ -190,11 +195,11 @@ Leaf\Redis::set(["key" => "value", "key2" => "value"]);
 This returns a saved redis entry.
 
 ```php
-$value = Leaf\Redis::get("key");
+$value = Leaf\Redis::get('key');
 
 // You can also get multiple entries at once
 
-$data = Leaf\Redis::get(["key", "key2"]);
+$data = Leaf\Redis::get(['key', 'key2']);
 
 // $data => [key => value, key2 => value]
 ```
@@ -209,15 +214,15 @@ Leaf\Redis::ping();
 
 ## 💬 Stay In Touch
 
-- [Twitter](https://twitter.com/leafphp)
-- [Join the forum](https://github.com/leafsphp/leaf/discussions/37)
-- [Chat on discord](https://discord.com/invite/Pkrm9NJPE3)
+-   [Twitter](https://twitter.com/leafphp)
+-   [Join the forum](https://github.com/leafsphp/leaf/discussions/37)
+-   [Chat on discord](https://discord.com/invite/Pkrm9NJPE3)
 
 ## 📓 Learning Leaf 3
 
-- Leaf has a very easy to understand [documentation](https://leafphp.dev) which contains information on all operations in Leaf.
-- You can also check out our [youtube channel](https://www.youtube.com/channel/UCllE-GsYy10RkxBUK0HIffw) which has video tutorials on different topics
-- We are also working on codelabs which will bring hands-on tutorials you can follow and contribute to.
+-   Leaf has a very easy to understand [documentation](https://leafphp.dev) which contains information on all operations in Leaf.
+-   You can also check out our [youtube channel](https://www.youtube.com/channel/UCllE-GsYy10RkxBUK0HIffw) which has video tutorials on different topics
+-   You can also learn from [codelabs](https://codelabs.leafphp.dev) and contribute as well.
 
 ## 😇 Contributing
 
@@ -225,52 +230,8 @@ We are glad to have you. All contributions are welcome! To get started, familiar
 
 To report a security vulnerability, you can reach out to [@mychidarko](https://twitter.com/mychidarko) or [@leafphp](https://twitter.com/leafphp) on twitter. We will coordinate the fix and eventually commit the solution in this project.
 
-### Code contributors
-
-<table>
-	<tr>
-		<td align="center">
-			<a href="https://github.com/mychidarko">
-				<img src="https://avatars.githubusercontent.com/u/26604242?v=4" width="120px" alt=""/>
-				<br />
-				<sub>
-					<b>Michael Darko</b>
-				</sub>
-			</a>
-		</td>
-	</tr>
-</table>
-
 ## 🤩 Sponsoring Leaf
 
 Your cash contributions go a long way to help us make Leaf even better for you. You can sponsor Leaf and any of our packages on [open collective](https://opencollective.com/leaf) or check the [contribution page](https://leafphp.dev/support/) for a list of ways to contribute.
 
-And to all our existing cash/code contributors, we love you all ❤️
-
-### Cash contributors
-
-<table>
-	<tr>
-		<td align="center">
-			<a href="https://opencollective.com/aaron-smith3">
-				<img src="https://images.opencollective.com/aaron-smith3/08ee620/avatar/256.png" width="120px" alt=""/>
-				<br />
-				<sub><b>Aaron Smith</b></sub>
-			</a>
-		</td>
-		<td align="center">
-			<a href="https://opencollective.com/peter-bogner">
-				<img src="https://images.opencollective.com/peter-bogner/avatar/256.png" width="120px" alt=""/>
-				<br />
-				<sub><b>Peter Bogner</b></sub>
-			</a>
-		</td>
-		<td align="center">
-			<a href="#">
-				<img src="https://images.opencollective.com/guest-32634fda/avatar.png" width="120px" alt=""/>
-				<br />
-				<sub><b>Vano</b></sub>
-			</a>
-		</td>
-	</tr>
-</table>
+And to all our [existing cash/code contributors](https://leafphp.dev#sponsors), we love you all ❤️
