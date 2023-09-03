@@ -6,7 +6,7 @@ namespace Leaf;
  * Leaf + Redis [BETA]
  * ----------
  * Redis made crazy simple
- * 
+ *
  * @since 2.5.1
  * @author Michael Darko <mickdd22@gmail.com>
  * @version 1.0.0-beta
@@ -21,16 +21,16 @@ class Redis
      * @var array
      */
     private static $config = [
-        "host" => "127.0.0.1",
-        "port" => 6379,
-        "connection.timeout" => 0.0,
-        "connection.reserved" => null,
-        "connection.retryInterval" => 0,
-        "connection.readTimeout" => 0.0,
-        "password" => null,
-        "session" => false,
-        "session.savePath" => null,
-        "session.saveOptions" => [],
+        'host' => '127.0.0.1',
+        'port' => 6379,
+        'connection.timeout' => 0.0,
+        'connection.reserved' => null,
+        'connection.retryInterval' => 0,
+        'connection.readTimeout' => 0.0,
+        'password' => null,
+        'session' => false,
+        'session.savePath' => null,
+        'session.saveOptions' => [],
     ];
 
     /**
@@ -40,7 +40,7 @@ class Redis
 
     /**
      * Initialize redis and connect to redis instance
-     * 
+     *
      * @param array $config Configuration for the redis instance.
      */
     public static function init(array $config = [])
@@ -52,36 +52,36 @@ class Redis
         } catch (\Throwable $th) {
             trigger_error($th);
         }
-        
+
         try {
             $redis->connect(
-                static::$config["host"],
-                static::$config["port"],
-                static::$config["connection.timeout"],
-                static::$config["connection.reserved"],
-                static::$config["connection.retryInterval"],
-                static::$config["connection.readTimeout"]
+                static::$config['host'],
+                static::$config['port'],
+                static::$config['connection.timeout'],
+                static::$config['connection.reserved'],
+                static::$config['connection.retryInterval'],
+                static::$config['connection.readTimeout']
             );
         } catch (\Throwable $th) {
             trigger_error($th);
         }
 
-        if (static::$config["password"]) {
+        if (static::$config['password']) {
             try {
-                $redis->auth(static::$config["password"]);
+                $redis->auth(static::$config['password']);
             } catch (\Throwable $th) {
                 trigger_error($th);
             }
         }
 
         if (
-            static::$config["session.saveOptions"] &&
-            count(static::$config["session.saveOptions"]) > 0
+            static::$config['session.saveOptions'] &&
+            count(static::$config['session.saveOptions']) > 0
         ) {
             static::parseSaveOptions();
         }
 
-        if (static::$config["session"] === true) {
+        if (static::$config['session'] === true) {
             static::setSessionHandler();
         }
 
@@ -92,49 +92,49 @@ class Redis
 
     protected static function setSessionHandler()
     {
-        if (!static::$config["session.savePath"]) {
-            static::$config["session.savePath"] = "tcp://" . static::$config["host"] . ":" . static::$config["port"];
+        if (!static::$config['session.savePath']) {
+            static::$config['session.savePath'] = 'tcp://' . static::$config['host'] . ':' . static::$config['port'];
 
             if (
-                static::$config["session.saveOptions"] &&
-                count(static::$config["session.saveOptions"]) > 0
+                static::$config['session.saveOptions'] &&
+                count(static::$config['session.saveOptions']) > 0
             ) {
-                static::$config["session.savePath"] .= static::$config["session.saveOptions"][0];
+                static::$config['session.savePath'] .= static::$config['session.saveOptions'][0];
             }
         } else {
-            if (is_array(static::$config["session.savePath"])) {
-                $fullPath = "";
+            if (is_array(static::$config['session.savePath'])) {
+                $fullPath = '';
 
-                foreach (static::$config["session.savePath"] as $index => $savePath) {
+                foreach (static::$config['session.savePath'] as $index => $savePath) {
                     $fullPath .= $savePath;
 
                     if (
-                        static::$config["session.saveOptions"] &&
-                        isset(static::$config["session.saveOptions"][$index])
+                        static::$config['session.saveOptions'] &&
+                        isset(static::$config['session.saveOptions'][$index])
                     ) {
-                        $fullPath .= static::$config["session.saveOptions"][$index];
+                        $fullPath .= static::$config['session.saveOptions'][$index];
                     }
 
-                    if (($index + 1) < count(static::$config["session.savePath"])) {
-                        $fullPath .= ", ";
+                    if (($index + 1) < count(static::$config['session.savePath'])) {
+                        $fullPath .= ', ';
                     }
                 }
 
-                static::$config["session.savePath"] = $fullPath;
+                static::$config['session.savePath'] = $fullPath;
             }
         }
 
-        ini_set("session.save_handler", "redis");
-        ini_set("session.save_path", static::$config["session.savePath"]);
+        ini_set('session.save_handler', 'redis');
+        ini_set('session.save_path', static::$config['session.savePath']);
     }
 
     protected static function parseSaveOptions()
     {
         $parsedOptions = [];
 
-        foreach (static::$config["session.saveOptions"] as $options) {
+        foreach (static::$config['session.saveOptions'] as $options) {
             $optionKeys = array_keys($options);
-            $option = "";
+            $option = '';
 
             foreach ($optionKeys as $optionIndex => $optionValue) {
                 if ($optionIndex == 0) {
@@ -147,16 +147,16 @@ class Redis
             $parsedOptions[] = $option;
         }
 
-        static::$config["session.saveOptions"] = $parsedOptions;
+        static::$config['session.saveOptions'] = $parsedOptions;
     }
 
     /**
      * Set a redis value
-     * 
+     *
      * @param string|array $key The value(s) to set
      * @param string|mixed $value — string if not used serializer
      * @param int|array $timeout [optional] Calling setex() is preferred if you want a timeout.
-     * 
+     *
      * Since 2.6.12 it also supports different flags inside an array. Example ['NX', 'EX' => 60]
      * - EX seconds -- Set the specified expire time, in seconds.
      * - PX milliseconds -- Set the specified expire time, in milliseconds.
@@ -170,7 +170,7 @@ class Redis
      * @link https://redis.io/commands/set
      * @since If you're using Redis >= 2.6.12, you can pass extended options as explained in example
      */
-    public static function set($key, $value = "", $timeout = null)
+    public static function set($key, $value = '', $timeout = null)
     {
         if (is_array($key)) {
             foreach ($key as $itemKey => $itemValue) {
@@ -183,11 +183,11 @@ class Redis
 
     /**
      * Get a redis value
-     * 
+     *
      * @param string|array $key The value(s) to get
      * @return string|mixed|false
      * If key didn't exist, FALSE is returned. Otherwise, the value related to this key is returned
-     * 
+     *
      * @link https://redis.io/commands/get
      */
     public static function get($key)
@@ -232,8 +232,8 @@ class Redis
      */
     public static function commands(): array
     {
-        require __DIR__ . "/Commands/InstallCommand.php";
-        require __DIR__ . "/Commands/ServerCommand.php";
+        require __DIR__ . '/Commands/InstallCommand.php';
+        require __DIR__ . '/Commands/ServerCommand.php';
 
         return [
             Redis\Commands\InstallCommand::class,
