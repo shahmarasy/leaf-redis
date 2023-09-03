@@ -9,7 +9,7 @@
         "php",
         "database"
     ],
-    "homepage": "https://github.com/leafsphp/redis",
+    "homepage": "https://leafphp.dev/modules/redis/",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -26,8 +26,8 @@
         }
     },
     "minimum-stability": "dev",
-	"prefer-stable": true,
+    "prefer-stable": true,
     "require": {
-        "leafs/aloe": "^1.1"
+        "leafs/aloe": "*"
     }
 }
