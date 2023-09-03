@@ -13,12 +13,12 @@ class InstallCommand extends Command
 
     protected function updateConfig()
     {
-        $installablesDir = __DIR__ . "/stubs";
+        $installablesDir = __DIR__ . '/stubs';
         $installables = FS::listFolders($installablesDir);
 
         foreach ($installables as $installableDir) {
             $dir = FS::listDir($installableDir);
-            $trueDir = str_replace($installablesDir, "", $installableDir);
+            $trueDir = str_replace($installablesDir, '', $installableDir);
 
             if (!is_dir(\Aloe\Command\Config::rootpath("$trueDir"))) {
                 FS::createFolder(\Aloe\Command\Config::rootpath("$trueDir"));
@@ -35,22 +35,22 @@ class InstallCommand extends Command
 
     protected function updateEnv()
     {
-        $env = \Aloe\Command\Config::rootpath(".env");
-        $envExample = \Aloe\Command\Config::rootpath(".env.example");
+        $env = \Aloe\Command\Config::rootpath('.env');
+        $envExample = \Aloe\Command\Config::rootpath('.env.example');
 
-        $envData = "
+        $envData = '
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
-REDIS_PASSWORD=null";
+REDIS_PASSWORD=null';
 
         if (file_exists($env)) {
             $envContent = file_get_contents($env);
-            file_put_contents($env, str_replace($envData, "", $envContent) . $envData);
+            file_put_contents($env, str_replace($envData, '', $envContent) . $envData);
         }
 
         if (file_exists($envExample)) {
             $envExampleContent = file_get_contents($envExample);
-            file_put_contents($envExample, str_replace($envData, "", $envExampleContent) . $envData);
+            file_put_contents($envExample, str_replace($envData, '', $envExampleContent) . $envData);
         }
     }
 
@@ -59,6 +59,6 @@ REDIS_PASSWORD=null";
         $this->updateConfig();
         $this->updateEnv();
 
-        $this->comment("Leaf redis installed successfully!");
+        $this->comment('Leaf redis installed successfully!');
     }
 }
