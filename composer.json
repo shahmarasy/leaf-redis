@@ -1,5 +1,5 @@
 {
-    "name": "leafs/redis",
+    "name": "shahmarasy/leaf-redis",
     "description": "Super simple redis helper for your PHP apps.",
     "keywords": [
         "redis",
@@ -18,11 +18,17 @@
             "email": "mickdd22@gmail.com",
             "homepage": "https://mychi.netlify.app",
             "role": "Developer"
+        },
+        {
+            "name": "Bahman Shahmarasy",
+            "email": "shahmarasy@gmail.com",
+            "homepage": "https://page8.ir",
+            "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Leaf\\": "src"
+            "Shahmarasy\\Leaf\\redis\\": "src"
         }
     },
     "minimum-stability": "dev",
