@@ -206,6 +206,77 @@ class Redis
     }
 
     /**
+     * Push an element to the end of the queue.
+     *
+     * @param string $queue The name of the queue
+     * @param mixed $value The value to be added to the queue
+     * @param string $direction The direction to push the element to. Either 'left' or 'right'
+     * @return int The length of the queue after the push operation
+     * @throws \RedisException If there is an issue with the Redis server.
+     */
+    public static function pushToQueue(string $queue, $value, string $direction = 'left'): int
+    {
+        if ($direction === 'left') {
+            return static::$redis->lPush($queue, $value);
+        } else {
+            return static::$redis->rPush($queue, $value);
+        }
+    }
+
+    /**
+     * Pop an element from the front of the queue.
+     *
+     * @param string $queue The name of the queue
+     * @param string $direction The direction to pop the element from. Either 'left' or 'right'
+     * @return mixed The value of the first element, or false if the queue is empty
+     * @throws \RedisException If there is an issue with the Redis server.
+     */
+    public static function popFromQueue(string $queue, string $direction = 'right'): mixed
+    {
+        if ($direction === 'right') {
+            return static::$redis->rPop($queue);
+        } else {
+            return static::$redis->lPop($queue);
+        }
+    }
+
+    /**
+     * Get the length of the queue.
+     *
+     * @param string $queue The name of the queue
+     * @return int The length of the queue
+     * @throws \RedisException If there is an issue with the Redis server.
+     */
+    public static function getQueueLength(string $queue): int
+    {
+        return static::$redis->lLen($queue);
+    }
+
+    /**
+     * Peek at the first element of the queue without removing it.
+     *
+     * @param string $queue The name of the queue
+     * @return mixed The value of the first element, or false if the queue is empty
+     * @throws \RedisException If there is an issue with the Redis server.
+     */
+    public static function peekQueue(string $queue): mixed
+    {
+        return static::$redis->lIndex($queue, 0);
+    }
+
+    /**
+     * Get all elements of the queue.
+     *
+     * @param string $queue The name of the queue
+     * @return array The elements of the queue
+     * @throws \RedisException If there is an issue with the Redis server.
+     */
+    public static function getAllQueueElements(string $queue): array
+    {
+        return static::$redis->lRange($queue, 0, -1);
+    }
+
+    /**
      * Ping redis server.
      *
      * @param string|null $message — [optional]
