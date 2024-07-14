@@ -1,6 +1,6 @@
 <?php
 
-namespace Leaf;
+namespace Shahmarasy\Leaf;
 
 /**
  * Leaf + Redis [BETA]
@@ -9,7 +9,8 @@ namespace Leaf;
  *
  * @since 2.5.1
  * @author Michael Darko <mickdd22@gmail.com>
- * @version 1.0.0-beta
+ * @author Bahman Shahmarasy <shahmarasy@gmail.com>
+ * @version 1.0.1-beta
  */
 class Redis
 {
